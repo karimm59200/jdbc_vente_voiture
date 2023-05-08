@@ -4,6 +4,7 @@ import org.example.DAO.CarDAO;
 import org.example.DAO.PersonDAO;
 import org.example.DAO.SaleDAO;
 import org.example.model.Car;
+import org.example.model.Person;
 import org.example.utils.DataBaseManager;
 
 import java.sql.Connection;
@@ -172,5 +173,32 @@ public class IHM {
             throw new RuntimeException(e);
         }
     }
+
+    private Person createPersonAction() {
+        System.out.println("Merci de saisir le prénom de la personne: ");
+        String firstName = scanner.nextLine();
+        System.out.println("Merci de saisir le nom de la personne: ");
+        String lastName = scanner.nextLine();
+        System.out.println("Merci de saisir l'age de la personne");
+        int age = scanner.nextInt();
+        scanner.nextLine();
+        Person person = new Person(firstName, lastName, age);
+        try {
+            connection = new DataBaseManager().getConnection();
+            connection.setAutoCommit(false);
+            personDAO = new PersonDAO(connection);
+            if (personDAO.save(person)) {
+                System.out.println("voiture ajouté " + person.getIdPerson());
+                connection.commit();
+            } else {
+                person = null;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            person = null;
+        }
+        return person;
+    }
+
 
 }
