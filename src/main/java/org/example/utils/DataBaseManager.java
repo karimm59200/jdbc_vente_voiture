@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DataBaseManager {
-    private static final String URI = "jdbc:mysql://localhost:3306/tp_java";
+    private static final String URI = "jdbc:mysql://localhost:3306/bdd_voiture";
     private static final String USER = "root";
     private static final String PASSWORD = "test";
 
